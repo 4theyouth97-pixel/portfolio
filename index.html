@@ -1,515 +1,141 @@
-<!DOCTYPE html>
-<!-- saved from url=(0087)https://leading-copper-hwsscchr-dpfxi0zmdl4g.edgeone.app/team-agents-retrospective.html -->
-<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>1명의 디자이너, 8개의 에이전트 - 1인 디자인 조직 설계기</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="./css2" rel="stylesheet">
-<link href="./pretendard.css" rel="stylesheet">
-<style>
-  :root{
-    --primary:#007EFF;
-    --primary-subtle:#EBF4FF;
-    --secondary:#FF8000;
-    --ink:#161616;
-    --ink-2:#454545;
-    --ink-3:#676767;
-    --ink-4:#8F8F8F;
-    --line:#E6E6E6;
-    --line-soft:#F0F0F0;
-    --bg:#FFFFFF;
-    --bg-2:#F7F8FA;
-    --bg-3:#F2F2F2;
-    --success:#238B45;
-    --warning:#FFDB20;
-    --radius-sm:8px;
-    --radius-md:12px;
-    --radius-lg:16px;
-    --maxw:760px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Pretendard','Poppins',-apple-system,sans-serif;
-    color:var(--ink);
-    background:var(--bg);
-    line-height:1.72;
-    font-size:16px;
-    letter-spacing:-0.01em;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-
-  /* ---- Hero ---- */
-  .hero{padding:96px 0 56px;border-bottom:1px solid var(--line)}
-  .kicker{
-    font-family:'Poppins',sans-serif;font-weight:600;font-size:12px;
-    letter-spacing:0.14em;text-transform:uppercase;color:var(--primary);
-    margin-bottom:20px;
-  }
-  .hero h1{
-    font-size:40px;line-height:1.22;font-weight:700;letter-spacing:-0.03em;
-    margin-bottom:14px;
-  }
-  .hero .subtitle{
-    font-size:18px;font-weight:600;color:var(--primary);letter-spacing:-0.02em;
-    margin-bottom:22px;
-  }
-  .hero .lede{font-size:18px;color:var(--ink-2);line-height:1.7;max-width:640px}
-  .meta{
-    margin-top:36px;display:flex;flex-wrap:wrap;gap:8px 28px;
-    font-size:13px;color:var(--ink-4);
-  }
-  .meta span b{color:var(--ink-2);font-weight:600}
-
-  /* ---- Section ---- */
-  section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
-  .sec-no{
-    font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;
-    color:var(--ink-4);letter-spacing:0.08em;margin-bottom:10px;
-  }
-  h2{font-size:26px;font-weight:700;letter-spacing:-0.025em;margin-bottom:24px;line-height:1.35}
-  h3{font-size:18px;font-weight:700;letter-spacing:-0.02em;margin:36px 0 12px}
-  p{margin-bottom:18px;color:var(--ink-2)}
-  p strong{color:var(--ink);font-weight:600}
-  .em{color:var(--primary);font-weight:600}
-  a{color:var(--primary);text-decoration:none}
-
-  /* pull quote */
-  .pull{
-    border-left:3px solid var(--primary);
-    padding:4px 0 4px 22px;margin:30px 0;
-    font-size:19px;line-height:1.6;color:var(--ink);font-weight:600;letter-spacing:-0.02em;
-  }
-
-  /* note box */
-  .note{
-    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-md);
-    padding:22px 24px;margin:26px 0;font-size:15px;color:var(--ink-2);
-  }
-  .note .t{font-weight:700;color:var(--ink);margin-bottom:6px;display:block}
-
-  /* ---- diagram ---- */
-  .map{
-    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);
-    padding:30px 26px;margin:8px 0 4px;
-  }
-  .map .pm{
-    background:var(--ink);color:#fff;border-radius:var(--radius-md);
-    padding:16px 20px;text-align:center;
-  }
-  .map .pm .role{font-family:'Poppins',sans-serif;font-size:11px;letter-spacing:0.1em;color:#8FC4FF;font-weight:600}
-  .map .pm .nm{font-size:16px;font-weight:700;margin-top:3px}
-  .map .pm .desc{font-size:12.5px;color:#C9C9C9;margin-top:5px}
-  .connector{width:1px;height:24px;background:var(--line);margin:0 auto}
-  .teams{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .teamcell{
-    background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);
-    padding:11px 8px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink-3);
-  }
-  .teamcell.live{border-color:var(--primary);color:var(--primary);background:var(--primary-subtle)}
-  .teamcell small{display:block;font-weight:500;font-size:10.5px;color:var(--ink-4);margin-top:2px}
-  .design-stack{margin-top:18px;border-top:1px dashed var(--line);padding-top:18px}
-  .design-stack .lbl{font-size:12px;color:var(--ink-4);text-align:center;margin-bottom:14px}
-  .chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
-  .chip{
-    background:#fff;border:1px solid var(--line);border-radius:100px;
-    padding:6px 13px;font-size:12.5px;font-weight:600;color:var(--ink-2);
-  }
-  .chip.orc{background:var(--ink);color:#fff;border-color:var(--ink)}
-
-  /* ---- agent list ---- */
-  .agent{
-    padding:26px 0;border-top:1px solid var(--line-soft);
-    display:grid;grid-template-columns:34px 1fr;gap:18px;
-  }
-  .agent:first-of-type{border-top:none}
-  .agent .idx{
-    font-family:'Poppins',sans-serif;font-weight:700;font-size:14px;
-    color:var(--primary);padding-top:2px;
-  }
-  .agent .nm{font-size:16.5px;font-weight:700;letter-spacing:-0.01em}
-  .agent .nm code{
-    font-family:'Poppins',monospace;font-size:12px;font-weight:500;
-    color:var(--ink-4);background:var(--bg-3);padding:2px 7px;border-radius:5px;
-    margin-left:8px;letter-spacing:0;
-  }
-  .agent .body{font-size:14.5px;color:var(--ink-2);margin-top:8px;line-height:1.66}
-  .agent .solve{
-    font-size:13.5px;color:var(--ink-3);margin-top:10px;
-    padding-left:13px;border-left:2px solid var(--line);
-  }
-  .agent .solve b{color:var(--ink-2);font-weight:600}
-
-  /* outcome / gap two-col cards */
-  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
-  .card{
-    border:1px solid var(--line);border-radius:var(--radius-md);padding:20px 22px;
-    background:#fff;
-  }
-  .card .h{font-weight:700;font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-  .card .h .dot{width:7px;height:7px;border-radius:50%;background:var(--success)}
-  .card.gap .h .dot{background:var(--warning)}
-  .card p{font-size:13.5px;margin:0;color:var(--ink-3);line-height:1.6}
-
-  /* metric strip */
-  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 28px}
-  .metric{
-    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-md);
-    padding:20px 14px;text-align:center;
-  }
-  .metric .v{font-family:'Poppins',sans-serif;font-size:27px;font-weight:700;color:var(--primary);letter-spacing:-0.02em;line-height:1}
-  .metric .l{font-size:12.5px;color:var(--ink-2);margin-top:9px;line-height:1.35;font-weight:600}
-  .metric .l small{display:block;font-weight:500;color:var(--ink-4);margin-top:2px;font-size:11px}
-
-  ul.clean{list-style:none;margin:14px 0 4px}
-  ul.clean li{
-    position:relative;padding-left:20px;margin-bottom:13px;font-size:14.5px;color:var(--ink-2);
-  }
-  ul.clean li::before{
-    content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;
-    border-radius:1px;background:var(--primary);transform:rotate(45deg);
-  }
-  ul.clean li b{color:var(--ink);font-weight:600}
-
-  footer{padding:48px 0 80px;color:var(--ink-4);font-size:13px}
-  footer .sig{font-family:'Poppins',sans-serif;font-weight:600;color:var(--ink-3)}
-
-  @media(max-width:640px){
-    .hero{padding:64px 0 40px}
-    .hero h1{font-size:29px}
-    .teams{grid-template-columns:repeat(2,1fr)}
-    .cards{grid-template-columns:1fr}
-    h2{font-size:22px}
-  }
-</style>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>임정민 | Product Designer Portfolio</title>
+  <meta name="description" content="비즈니스 지표를 디자인으로 해결하는 7년 차 프로덕트 디자이너 임정민의 포트폴리오">
+  <style>
+    :root {
+      --blue: #1473e6;
+      --blue-dark: #0b2d52;
+      --ink: #14171c;
+      --muted: #667085;
+      --line: #e5e7eb;
+      --surface: #f7f9fc;
+      --max: 920px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin: 0 auto; }
+    .hero { padding: 112px 0 86px; border-bottom: 1px solid var(--line); }
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(36px, 6vw, 64px);
+      line-height: 1.12;
+      letter-spacing: -.055em;
+    }
+    .intro {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      letter-spacing: -.025em;
+    }
+    .section { padding: 72px 0 110px; }
+    .section-label {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h2 { margin: 0 0 30px; font-size: 30px; letter-spacing: -.04em; }
+    .project {
+      display: block;
+      padding: 34px 36px 30px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f4f8ff 0%, #fff 72%);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .project:hover {
+      transform: translateY(-3px);
+      border-color: #a8c8f6;
+      box-shadow: 0 16px 40px rgba(20, 115, 230, .12);
+    }
+    .project-top { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+    .project-number { color: var(--blue); font-size: 14px; font-weight: 700; }
+    .arrow { color: var(--blue); font-size: 28px; line-height: 1; }
+    h3 { margin: 44px 0 8px; font-size: clamp(24px, 4vw, 36px); letter-spacing: -.05em; }
+    .project-subtitle { margin: 0; color: var(--muted); font-size: 17px; }
+    .project-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 22px;
+      margin-top: 34px; color: #7b8491; font-size: 13px;
+    }
+    .project-cta { margin-top: 24px; color: var(--blue); font-size: 14px; font-weight: 700; }
+    .next {
+      margin-top: 18px; padding: 25px 28px; border-radius: 14px;
+      background: var(--surface); color: var(--muted); font-size: 14px; line-height: 1.6;
+    }
+    footer { padding: 0 0 54px; color: #98a2b3; font-size: 13px; }
+    @media (max-width: 600px) {
+      .shell { width: min(100% - 32px, var(--max)); }
+      .hero { padding: 72px 0 58px; }
+      .section { padding: 56px 0 76px; }
+      .project { padding: 26px 24px 24px; }
+      .project-top { gap: 12px; }
+      .intro { font-size: 16px; }
+    }
+  </style>
 </head>
 <body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">Product Designer · Portfolio</p>
+      <h1>비즈니스 지표를<br>디자인으로 해결합니다.</h1>
+      <p class="intro">
+        7년 차 프로덕트 디자이너 임정민의 작업을 모았습니다.
+        문제를 구조화하고, 팀의 판단 기준을 만들고, 제품의 다음 변화를 설계합니다.
+      </p>
+    </header>
 
-<div class="wrap">
+    <section class="section" aria-labelledby="works-title">
+      <p class="section-label">Selected Works</p>
+      <h2 id="works-title">프로젝트</h2>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="kicker">Team Agents · Retrospective</div>
-    <h1>1명의 디자이너,<br>8개의 에이전트</h1>
-    <p class="subtitle">1인 디자인 조직 설계기</p>
-    <p class="lede">
-      디자이너 한 명이 기획부터 시안, 디자인시스템 운영까지 다 끌어안다 보면 결국 같은 판단을 매번 처음부터 다시 하게 된다.
-      그 반복을 줄이려고 만든 게 이 팀 에이전트들이다. 매치나우 디자인시스템을 중심에 둔 디자인팀 일곱 명, 그리고 그 위에서
-      전체를 조율하는 PM 한 명. 이 문서는 왜 만들었고, 무엇을 풀었고, 아직 무엇이 부족한지에 대한 기록이다.
-    </p>
-    <div class="meta">
-      <span><b>대상</b> 디자인팀 7 + PM 오케스트레이터</span>
-      <span><b>기준일</b> 2026.06</span>
-      <span><b>버전</b> v0.1</span>
-      <span><b>작성</b> 정민</span>
-    </div>
-  </header>
-
-  <!-- 1. 배경 -->
-  <section>
-    <div class="sec-no">01</div>
-    <h2>배경 - 1인 체제의 진짜 병목</h2>
-    <p>
-      혼자 디자인을 굴리는 환경에서 가장 비싼 비용은 손이 아니라 <strong>판단</strong>이었다.
-      새 화면을 잡을 때마다 "이 정보가 멘토에게도 멘티에게도 같은 자리에 있어야 하나",
-      "이 라벨은 칩인가 배지인가", "이 색은 토큰에 있던가" 같은 결정을 매번 백지에서 다시 했다.
-      결정의 질은 그날 컨디션을 탔고, 어제의 나와 오늘의 내가 다른 답을 내는 일도 잦았다.
-    </p>
-    <p>
-      도구도 흩어져 있었다. 기획은 머릿속, 정보구조는 메모, 토큰은 피그마, 검수는 눈대중.
-      이 사이를 오가며 생기는 누락이 결국 시안의 일관성을 깎아먹었다.
-      특히 피그마에서 색을 <em>그럴듯하게 보이게</em> 박아두면 토큰이 끊긴 채로 남아,
-      나중에 라이트/다크 모드나 핸드오프 단계에서 한꺼번에 터졌다.
-    </p>
-    <div class="pull">
-      "결과물이 흔들리는 게 아니라, 결과물에 도달하는 판단의 기준이 흔들리고 있었다."
-    </div>
-    <p>
-      그래서 필요한 건 더 빠른 손이 아니라, <strong>판단의 기준을 밖으로 꺼내 고정하는 장치</strong>였다.
-      한 번 잘 내린 결정을 규칙으로 박제해두면, 다음부터는 그 위에서 시작할 수 있으니까.
-    </p>
-  </section>
-
-  <!-- 2. 목적 -->
-  <section>
-    <div class="sec-no">02</div>
-    <h2>목적 - 무엇을 만들려고 했나</h2>
-    <p>
-      목표는 분명했다. 내가 매번 반복하던 좋은 판단들을 에이전트 안에 넣어,
-      <strong>"한 줄 요청 → 끝까지 산출물"</strong>이 가능한 작은 디자인 조직을 세우는 것.
-      단, 자동화가 내 통제를 넘어가지 않도록 세 가지 원칙을 처음부터 못 박았다.
-    </p>
-    <ul class="clean">
-      <li><b>도메인이 화면보다 먼저다.</b> 박스를 그리기 전에 어떤 엔티티·관계를 다루는지부터 정의한다.</li>
-      <li><b>큰 결정은 사람이 서명한다.</b> 방향 전환·구조 변경·라이브러리 직접 수정은 에이전트가 임의로 못 한다(Advisory Mode).</li>
-      <li><b>채팅은 보고용, 깊이는 파일.</b> 5분 안에 검수 가능한 한 줄 보고 + 상세는 산출물 파일로.</li>
-    </ul>
-    <p>
-      이 세 원칙은 사실 마케팅 에이전트 팀을 운영하며 효과를 봤던
-      <em>Advisory Mode · Phase Gate · 회고 사이클</em> 철학을 디자인 영역으로 옮겨온 것이다.
-      바닥부터 발명한 게 아니라, 검증된 운영 방식을 내 작업에 맞게 번역했다.
-    </p>
-  </section>
-
-  <!-- 3. 구조 -->
-  <section>
-    <div class="sec-no">03</div>
-    <h2>구조 - 한 명의 PM, 일곱 명의 디자인팀</h2>
-    <p>
-      내가 직접 상대하는 건 PM 한 명이다. PM이 사업·기획·디자인·개발 네 팀으로 일을 라우팅하고,
-      그중 디자인팀은 다시 일곱 개의 전문 에이전트로 쪼개져 있다.
-      개발·사업·기획은 아직 청사진 단계라, 지금 실제로 살아 움직이는 건 디자인팀이다.
-    </p>
-
-    <div class="map">
-      <div class="pm">
-        <div class="role">PM ORCHESTRATOR</div>
-        <div class="nm">단일 진입점</div>
-        <div class="desc">매직 워드 한 줄을 받아 4팀으로 라우팅 · 5분 보고로 검수</div>
-      </div>
-      <div class="connector"></div>
-      <div class="teams">
-        <div class="teamcell">사업팀<small>청사진</small></div>
-        <div class="teamcell">기획팀<small>일부 가동</small></div>
-        <div class="teamcell live">디자인팀<small>가동 중</small></div>
-        <div class="teamcell">개발팀<small>청사진</small></div>
-      </div>
-      <div class="design-stack">
-        <div class="lbl">디자인팀 - Orchestration 백본이 7개 에이전트를 단계별로 호출</div>
-        <div class="chips">
-          <span class="chip orc">design-orchestration</span>
-          <span class="chip">ontology-planning</span>
-          <span class="chip">ia-judgment</span>
-          <span class="chip">design-system</span>
-          <span class="chip">figma-implementer</span>
-          <span class="chip">ds-componentize</span>
-          <span class="chip">ds-audit</span>
-          <span class="chip">layer-naming</span>
+      <a class="project" href="./projects/agent-organization/">
+        <div class="project-top">
+          <span class="project-number">01</span>
+          <span class="arrow" aria-hidden="true">↗</span>
         </div>
-      </div>
-    </div>
-    <div class="note">
-      <span class="t">왜 PM을 한 겹 더 뒀나</span>
-      디자인만 필요할 땐 PM을 우회해 디자인팀에 바로 들어갈 수 있다. PM은 사업·기획·개발까지 엮이는
-      큰 흐름에서만 의미가 있다. "회사 단위로 키울 때를 대비한 상위 추상화"라고 보면 된다.
-    </div>
-  </section>
-
-  <!-- 4. 에이전트별 -->
-  <section>
-    <div class="sec-no">04</div>
-    <h2>일곱 에이전트가 각각 푸는 문제</h2>
-    <p>
-      에이전트를 나눈 기준은 "기능"이 아니라 "내가 반복하던 판단의 종류"였다.
-      그래서 각자 푸는 문제가 겹치지 않는다.
-    </p>
-
-    <div class="agent">
-      <div class="idx">01</div>
-      <div>
-        <div class="nm">온톨로지 화면 기획 <code>ontology-screen-planning</code></div>
-        <div class="body">
-          도메인 인터뷰 → 엔티티·관계 → 화면 매트릭스 → 정보 우선순위 → 상태 분기 → 와이어프레임 → 시안까지
-          6단계를 한 번에 끝낸다. 백본 역할을 하는 에이전트다.
+        <h3>1명의 디자이너, 8개의 에이전트</h3>
+        <p class="project-subtitle">1인 디자인 조직 설계기</p>
+        <div class="project-meta">
+          <span>Product Design · AI Workflow</span>
+          <span>2026.06</span>
+          <span>Case Study</span>
         </div>
-        <div class="solve"><b>해결한 문제 -</b> "화면부터 그리고 보는" 습관. 도메인을 먼저 못 박으니 와이어프레임이 박스 놀이로 끝나지 않는다.</div>
-      </div>
-    </div>
+        <p class="project-cta">프로젝트 상세 보기 →</p>
+      </a>
 
-    <div class="agent">
-      <div class="idx">02</div>
-      <div>
-        <div class="nm">IA 판단 <code>matchnow-ia-judgment</code></div>
-        <div class="body">
-          정보 우선순위 4단계, 그룹핑 4축, 역할별 가시성, 엣지 케이스 4분류 등 7가지 판단 패턴을 규칙으로 고정했다.
-          핵심은 <em>동일 스켈레톤 원칙</em> - 멘토·멘티가 같은 데이터를 볼 때 위치·구조가 어긋나지 않게 강제한다.
-        </div>
-        <div class="solve"><b>해결한 문제 -</b> 멘토 화면과 멘티 화면이 따로 진화하며 비대칭이 쌓이던 문제. 토큰을 입히기 전에 스켈레톤 매트릭스로 한 번 묶는다.</div>
+      <div class="next">
+        다음 프로젝트가 추가되면 이 목록에 같은 형식의 카드를 연결합니다.
       </div>
-    </div>
+    </section>
 
-    <div class="agent">
-      <div class="idx">03</div>
-      <div>
-        <div class="nm">디자인시스템 <code>matchnow-design-system</code></div>
-        <div class="body">
-          매치나우의 공식 토큰을 담은 SSoT. 3-Tier 토큰(143개 변수), Poppins 타입 스케일, 8pt 그리드,
-          버튼·텍스트필드·툴팁 등 22개 컴포넌트 규칙. "토큰 치환 ≠ DS 적용"이라는 구조 감사 체크리스트를 앞단에 둔 게 특징이다.
-        </div>
-        <div class="solve"><b>해결한 문제 -</b> 색만 바꾸고 끝내던 얕은 DS 적용. 레이어 구조 자체를 의심하게 만든다.</div>
-      </div>
-    </div>
-
-    <div class="agent">
-      <div class="idx">04</div>
-      <div>
-        <div class="nm">피그마 구현 <code>matchnow-figma-implementer</code></div>
-        <div class="body">
-          use_figma로 실제 노드를 그릴 때 색·텍스트·라디우스를 전부 진짜 변수에 바인딩하도록 강제한다.
-          RGB 리터럴 하드코딩 차단, 라벨이 칩인지 배지인지 구분, 레이어 이름을 스타일명과 동기화 - 작업 후 6-A~D 검증을 의무로 출력한다.
-        </div>
-        <div class="solve"><b>해결한 문제 -</b> "보기엔 같은데 토큰이 끊긴" 가짜 적용. 다크모드·핸드오프에서 터지던 시한폭탄을 막는다.</div>
-      </div>
-    </div>
-
-    <div class="agent">
-      <div class="idx">05</div>
-      <div>
-        <div class="nm">DS화 <code>matchnow-ds-componentize</code></div>
-        <div class="body">
-          이미 그려둔 프레임을 디자인시스템에 편입시킨다. primitive가 아닌 시맨틱 토큰으로 매핑하고,
-          라이트·다크 두 모드를 동시에 만든다. 완료 기준이 명확하다 - <em>raw=0, 텍스트 스타일 100%, primitive=0</em>.
-        </div>
-        <div class="solve"><b>해결한 문제 -</b> "자주 쓴 변수"를 자동으로 고르다 primitive에 묶이던 실수. 노드타입×색상 매트릭스로 의미 기반 매핑을 강제한다.</div>
-      </div>
-    </div>
-
-    <div class="agent">
-      <div class="idx">06</div>
-      <div>
-        <div class="nm">DS 감사 <code>matchnow-ds-audit</code></div>
-        <div class="body">
-          "정의되지 않음 / 보완 필요 / 사용처 없음" 3분류 체계로 토큰 이슈를 정식 리포트(.md, docx, pdf)로 뽑는다.
-          시급도 매트릭스까지 자동 계산해서, 본문보다 <em>"내가 무엇을 결정해야 하는가"</em>를 먼저 보여준다.
-        </div>
-        <div class="solve"><b>해결한 문제 -</b> 눈대중 검수. 검수를 감으로 하지 않고 결정 가능한 액션 리스트로 바꿨다.</div>
-      </div>
-    </div>
-
-    <div class="agent">
-      <div class="idx">07</div>
-      <div>
-        <div class="nm">레이어 네이밍 <code>figma-layer-naming</code></div>
-        <div class="body">
-          <code style="margin:0">ComponentName/Role[Variant]:State</code> 컨벤션으로 레이어 이름을 일괄 정리한다.
-          "Frame 427320229" 같은 기본 이름을 의미 있는 이름으로 바꾸고, 인스턴스·컴포넌트 원본은 건드리지 않는다.
-        </div>
-        <div class="solve"><b>해결한 문제 -</b> 레이어 패널의 무질서. 협업·핸드오프에서 남이 읽을 수 있는 파일이 된다.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. 문제해결 방법 -->
-  <section>
-    <div class="sec-no">05</div>
-    <h2>문제 해결 방법 - 자동화에 안전벨트를 맸다</h2>
-    <p>
-      에이전트를 빠르게 굴리는 것보다 <strong>잘못된 자동 실행을 막는 것</strong>에 더 공을 들였다.
-      한 번 잘못 박힌 토큰이나 날아간 데이터는 되돌리는 비용이 훨씬 크기 때문이다. 네 개의 장치를 깔았다.
-    </p>
-
-    <h3>Advisory Mode - 큰 결정엔 내 서명이 필요하다</h3>
-    <p>
-      라이브러리 직접 수정, 사업 방향 전환, 4팀 구조 변경 같은 결정은 에이전트가 절대 자동으로 못 한다.
-      반드시 <em>제안 → 내 명시 승인 → 실행</em> 순서를 탄다. "빨리 해줘"라고 해도 우회할 수 없는 항목을 따로 못 박아뒀다.
-    </p>
-
-    <h3>Phase Gate - 단계를 건너뛰지 못한다</h3>
-    <p>
-      예를 들어 멘토·멘티 동일 스켈레톤 매트릭스는 시안에 들어가기 전 내 컨펌을 받아야 통과한다.
-      와이어프레임 직전엔 5종 헬스체크(도구·드라이런·노드·네이밍·카탈로그)가 자동으로 돈다.
-      게이트를 못 넘으면 다음 단계로 못 간다.
-    </p>
-
-    <h3>변경 전 스냅샷 - 되돌릴 수 있게</h3>
-    <p>
-      피그마에 쓰기 호출을 하기 직전, 현재 상태를 스냅샷으로 저장한다.
-      뭔가 잘못되면 그 시점으로 롤백할 수 있다.
-    </p>
-
-    <h3>D+7 회귀 검증 - 일주일 뒤 다시 본다</h3>
-    <p>
-      작업 끝이 진짜 끝이 아니다. 7일 뒤 같은 산출물을 다시 검증해 토큰이 흐트러지지 않았는지 확인한다.
-      디자인은 D+7, 통합 회고는 D+60 - 팀이 각자 잘 도는데도 <em>사이가 어긋나는</em> 경우를 잡는 유일한 장치다.
-    </p>
-  </section>
-
-  <!-- 6. 성과 -->
-  <section>
-    <div class="sec-no">06</div>
-    <h2>성과 - 무엇이 실제로 달라졌나</h2>
-    <p>
-      방식의 변화는 숫자로도 남았다. 디자인팀이 <strong>3인에서 1인으로</strong> 줄었지만,
-      시스템을 코드로 박제한 덕분에 품질 지표는 오히려 안정됐다.
-    </p>
-    <div class="metrics">
-      <div class="metric"><div class="v">98%</div><div class="l">DS 적용률<small>3개월 운영 기준</small></div></div>
-      <div class="metric"><div class="v">0건</div><div class="l">주간 raw 값 검출<small>자동 감사로 유지</small></div></div>
-      <div class="metric"><div class="v">3→1</div><div class="l">운영 인원 전환<small>품질 유지하며</small></div></div>
-    </div>
-    <p>
-      숫자로 안 잡히는 변화는 더 크다. 일하는 방식 자체가 바뀌었다.
-    </p>
-    <div class="cards">
-      <div class="card">
-        <div class="h"><span class="dot"></span>판단을 매번 안 한다</div>
-        <p>정보 우선순위·역할 분기·엣지 케이스 같은 결정이 규칙으로 박제돼, 새 화면마다 백지에서 다시 고민하지 않는다.</p>
-      </div>
-      <div class="card">
-        <div class="h"><span class="dot"></span>완료 기준이 숫자가 됐다</div>
-        <p>"잘 된 것 같다"가 아니라 raw=0 · primitive=0 · 텍스트 스타일 100%처럼 통과/실패가 명확한 기준으로 끝낸다.</p>
-      </div>
-      <div class="card">
-        <div class="h"><span class="dot"></span>가짜 토큰이 안 남는다</div>
-        <p>피그마에 색을 그럴듯하게 박는 일이 사라졌다. 다크모드·핸드오프에서 터지던 문제가 작업 시점에 걸린다.</p>
-      </div>
-      <div class="card">
-        <div class="h"><span class="dot"></span>한 줄로 끝까지 간다</div>
-        <p>"온톨로지 기반으로 기획부터 시안까지" 한 줄이면 6단계 산출물이 한 흐름으로 나온다. 맥락 전달 비용이 줄었다.</p>
-      </div>
-      <div class="card">
-        <div class="h"><span class="dot"></span>검수가 문서가 됐다</div>
-        <p>눈대중 검수가 3분류 감사 리포트로 바뀌어, 디자인 결정을 남에게 설명하고 넘길 수 있는 형태가 됐다.</p>
-      </div>
-      <div class="card">
-        <div class="h"><span class="dot"></span>되돌릴 수 있다</div>
-        <p>스냅샷과 D+7 검증 덕분에 자동화를 무서워하지 않고 맡길 수 있게 됐다. 실패해도 복구 경로가 있다.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. 보완점 -->
-  <section>
-    <div class="sec-no">07</div>
-    <h2>보완점 - 아직 v0.1이다</h2>
-    <p>
-      솔직히 말하면 지금 제대로 도는 건 디자인팀뿐이다. 나머지는 청사진과 약속에 가깝다.
-      다음 사이클에서 채워야 할 것들을 숨기지 않고 적어둔다.
-    </p>
-    <div class="cards">
-      <div class="card gap">
-        <div class="h"><span class="dot"></span>개발·사업·기획팀이 비어 있다</div>
-        <p>디자인팀만 7개 에이전트로 구현됐고, 나머지 세 팀은 PM 청사진에만 정의돼 있다. 실제 사이클의 마찰에서 패턴을 뽑아 박제해야 한다.</p>
-      </div>
-      <div class="card gap">
-        <div class="h"><span class="dot"></span>도구가 피그마에 묶여 있다</div>
-        <p>Sketch·Photoshop 등 다른 디자인 도구 어댑터가 없다. 지금 흐름은 사실상 피그마 전용이다.</p>
-      </div>
-      <div class="card gap">
-        <div class="h"><span class="dot"></span>4팀 협업 절차가 미검증</div>
-        <p>DS 구축을 4팀이 함께 도는 구체적 단계 흐름은 아직 실전에서 돌려본 적이 없다. 첫 사이클 전에 박제가 필요하다.</p>
-      </div>
-      <div class="card gap">
-        <div class="h"><span class="dot"></span>외부 DS와 비교 검증이 없다</div>
-        <p>내부 품질 지표(적용률·raw 0건)는 챙겼지만, 업계 평균이나 다른 디자인시스템과 견줘본 적은 없다. 의사결정 근거를 더 정교하게 만들 단계가 남았다.</p>
-      </div>
-    </div>
-    <div class="note" style="margin-top:28px">
-      <span class="t">다음 한 걸음</span>
-      D+60 통합 회고에서 디자인팀이 만든 패턴 중 다른 팀에 옮길 수 있는 것을 추리는 것.
-      그리고 "왜 이 결정을 내렸는가"까지 남기는 의사결정 로그를 시스템에 붙이는 것. 이 문서 자체가 그 회고의 출발점이다.
-    </div>
-  </section>
-
-  <footer>
-    <p class="sig">Team Agents Retrospective · v0.1 · 2026.06</p>
-    <p style="margin:6px 0 0">매치나우 디자인시스템 위에서 운영되는 1인 디자인 조직의 기록. - 정민</p>
-  </footer>
-
-</div>
-
-
-</body></html>
+    <footer>
+      © 2026 정민. All rights reserved.
+    </footer>
+  </main>
+</body>
+</html>
